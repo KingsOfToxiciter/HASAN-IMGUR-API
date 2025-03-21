@@ -2,21 +2,24 @@ const express = require("express");
 const axios = require("axios");
 
 const app = express();
-app.use(express.json());
 
-app.get("/up", async (req, res) => {
+app.get("/imgur", async (req, res) => {
     try {
-        const { imageUrl } = req.query; 
         const clientID = "da9c35e7d727e2d";
+        const imageUrl = req.query.imageUrl;
 
+        
         const response = await axios.post("https://api.imgur.com/3/image", 
             { image: imageUrl }, 
             { headers: { Authorization: `Client-ID ${clientID}` } }
         );
 
-        res.json({ link: response.data.data.link });
+        const imgurLink = response.data.data.link;
+        
+        
+        res.render("index", { imgurLink });
     } catch (error) {
-        res.status(500).json({ error: "Upload failed", details: error.message });
+        res.status(500).send("Error uploading image");
     }
 });
 
