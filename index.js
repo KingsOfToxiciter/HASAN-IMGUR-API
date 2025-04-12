@@ -17,7 +17,7 @@ app.get("/imgur", async (req, res) => {
         const imgurLink = response.data.data.link;
         
         
-        res.render("index", { imgurLink });
+        res.json({ url: imgurLink });
     } catch (error) {
         res.status(500).send("Error uploading image");
     }
