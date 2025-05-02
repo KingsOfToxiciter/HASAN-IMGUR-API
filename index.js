@@ -21,6 +21,6 @@ app.get("/imgur", async (req, res) => {
     } catch (error) {
         res.status(500).json({ error: "Upload failed", details: error.message });
     }
-});
+}); 
 
 app.listen(3000, () => console.log("Server running on http://localhost:3000"));
